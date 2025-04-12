@@ -3,228 +3,553 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Your one-stop solution for all image and PDF tools. Compress, convert, and optimize files with ease.">
-    <meta name="keywords" content="image tools, PDF tools, compress images, optimize PDF, online tools">
-    <meta name="author" content="Amity">
-    <title>Amity Website - Home</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>CRC Patna - Administrative To-Do List</title>
     <style>
-        /* Reset CSS */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --complete-color: #27ae60;
+            --incomplete-color: #e74c3c;
+            --pending-color: #f39c12;
+            --light-bg: #f9f9f9;
+            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f9f9f9;
+            background-color: var(--light-bg);
             color: #333;
             line-height: 1.6;
         }
 
-        /* Navigation Bar */
-        nav {
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            color: #fff;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        nav .logo {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            opacity: 0.8;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            color: #fff;
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Tools Section */
-        .tools {
-            padding: 2rem;
+        .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 20px;
         }
 
-        .tools h2 {
+        header {
             text-align: center;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: #333;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
         }
 
-        .tool-grid {
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Task Input Form */
+        .task-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .btn-add {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-add:hover {
+            background-color: #2980b9;
+        }
+
+        /* Task Filter & Sort */
+        .task-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Task List */
+        .task-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
         }
 
-        .tool-card {
-            background: #fff;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s ease;
+        .task-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            padding: 20px;
+            position: relative;
+            transition: transform 0.3s;
         }
 
-        .tool-card:hover {
+        .task-card:hover {
             transform: translateY(-5px);
         }
 
-        .tool-card img {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 1rem;
+        .task-card.complete {
+            border-left: 5px solid var(--complete-color);
         }
 
-        .tool-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: #2575fc;
+        .task-card.incomplete {
+            border-left: 5px solid var(--incomplete-color);
         }
 
-        .tool-card p {
-            font-size: 0.9rem;
+        .task-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .task-meta {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .task-meta strong {
+            color: #333;
+        }
+
+        .task-remarks {
+            font-size: 14px;
             color: #666;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
         }
 
-        /* Footer */
-        footer {
-            background: #333;
-            color: #fff;
+        .task-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .btn-complete {
+            background-color: var(--complete-color);
+            color: white;
+        }
+
+        .btn-incomplete {
+            background-color: var(--incomplete-color);
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-complete:hover, .btn-incomplete:hover, .btn-delete:hover {
+            opacity: 0.9;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-complete {
+            background-color: #d5f5e3;
+            color: var(--complete-color);
+        }
+
+        .status-incomplete {
+            background-color: #fadbd8;
+            color: var(--incomplete-color);
+        }
+
+        /* Empty State */
+        .empty-state {
             text-align: center;
-            padding: 1.5rem;
-            margin-top: 2rem;
+            padding: 40px;
+            grid-column: 1 / -1;
         }
 
-        footer p {
-            margin: 0;
+        .empty-state img {
+            max-width: 150px;
+            opacity: 0.6;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            color: #666;
+            margin-bottom: 10px;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            nav {
+            .form-row {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 10px;
             }
 
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .tool-grid {
-                grid-template-columns: 1fr;
+            .task-controls {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav>
-        <div class="logo">Tools Website</div>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Image Tools</a></li>
-            <li><a href="#">PDF Tools</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
+    <div class="container">
+        <header>
+            <h1>CRC Patna - Administrative To-Do List</h1>
+            <p class="subtitle">Track tasks, deadlines, and responsibilities efficiently</p>
+        </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Your One-Stop Solution for All Image and PDF Tools</h1>
-        <p>Compress, convert, and optimize files with ease. Fast, secure, and free!</p>
-    </section>
+        <!-- Task Input Form -->
+        <div class="task-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="taskTitle">Task Title*</label>
+                    <input type="text" id="taskTitle" placeholder="Enter task title" required>
+                </div>
+                <div class="form-group">
+                    <label for="workCategory">Work Category*</label>
+                    <select id="workCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="Administrative">Administrative</option>
+                        <option value="Finance">Finance</option>
+                        <option value="HR">HR</option>
+                        <option value="Procurement">Procurement</option>
+                        <option value="Logistics">Logistics</option>
+                        <option value="Reporting">Reporting</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
 
-    <!-- Tools Section -->
-    <section class="tools">
-        <h2>Explore Our Tools</h2>
-        <div class="tool-grid">
-            <!-- Image Tools -->
-            <div class="tool-card">
-    <a href="/Tool/img-compress.html">
-        <img src="https://via.placeholder.com/60" alt="Image Compressor">
-        <h3>Image Compressor</h3>
-        <p>Compress and optimize images for web and mobile.</p>
-    </a>
-</div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="endDate">End Date*</label>
+                    <input type="date" id="endDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="belongsTo">Belongs To*</label>
+                    <select id="belongsTo" required>
+                        <option value="">Select Department/Person</option>
+                        <option value="Director">Director</option>
+                        <option value="Admin Head">Admin Head</option>
+                        <option value="Finance Team">Finance Team</option>
+                        <option value="HR Team">HR Team</option>
+                        <option value="Logistics Team">Logistics Team</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
 
-            <div class="tool-card">
-                <img src="https://via.placeholder.com/60" alt="Image Converter">
-                <h3>Image Converter</h3>
-                <p>Convert images to different formats like JPG, PNG, and more.</p>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="sendTo">Where to Send*</label>
+                    <select id="sendTo" required>
+                        <option value="">Select Recipient</option>
+                        <option value="Director Office">Director Office</option>
+                        <option value="Finance Department">Finance Department</option>
+                        <option value="HR Department">HR Department</option>
+                        <option value="Procurement">Procurement</option>
+                        <option value="Logistics">Logistics</option>
+                        <option value="External">External</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <select id="priority">
+                        <option value="Normal">Normal</option>
+                        <option value="High">High</option>
+                        <option value="Urgent">Urgent</option>
+                    </select>
+                </div>
             </div>
-            <!-- PDF Tools -->
-            <div class="tool-card">
-                <img src="https://via.placeholder.com/60" alt="PDF Compressor">
-                <h3>PDF Compressor</h3>
-                <p>Reduce the size of your PDF files without losing quality.</p>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="remarks">Remarks</label>
+                    <textarea id="remarks" placeholder="Additional notes..."></textarea>
+                </div>
             </div>
-            <div class="tool-card">
-                <img src="https://via.placeholder.com/60" alt="PDF to Word">
-                <h3>PDF to Word</h3>
-                <p>Convert PDF files to editable Word documents.</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://via.placeholder.com/60" alt="Merge PDF">
-                <h3>PDF to Word</h3>
-                <p>Merge PDF files.</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://via.placeholder.com/60" alt="Split PDF">
-                <h3>PDF to Word</h3>
-                <p>Add or Split PDF files.</p>
-            </div>
-            <!-- Add more tools as needed -->
+
+            <button class="btn-add" id="addTask">Add Task</button>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2023 Tools Website. All rights reserved.</p>
-    </footer>
+        <!-- Task Filter & Sort -->
+        <div class="task-controls">
+            <div class="filter-group">
+                <label>Filter:</label>
+                <select id="filterStatus">
+                    <option value="all">All Tasks</option>
+                    <option value="complete">Completed</option>
+                    <option value="incomplete">Incomplete</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Sort by:</label>
+                <select id="sortBy">
+                    <option value="endDate">End Date</option>
+                    <option value="workCategory">Work Category</option>
+                    <option value="priority">Priority</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Task List -->
+        <div class="task-list" id="taskList">
+            <!-- Tasks will be loaded here -->
+            <div class="empty-state">
+                <img src="https://cdn-icons-png.flaticon.com/512/4076/4076478.png" alt="No tasks">
+                <h3>No tasks added yet</h3>
+                <p>Start by adding a new task above</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const taskTitle = document.getElementById('taskTitle');
+            const workCategory = document.getElementById('workCategory');
+            const endDate = document.getElementById('endDate');
+            const belongsTo = document.getElementById('belongsTo');
+            const sendTo = document.getElementById('sendTo');
+            const priority = document.getElementById('priority');
+            const remarks = document.getElementById('remarks');
+            const addTaskBtn = document.getElementById('addTask');
+            const taskList = document.getElementById('taskList');
+            const filterStatus = document.getElementById('filterStatus');
+            const sortBy = document.getElementById('sortBy');
+
+            // Set default end date to today
+            const today = new Date().toISOString().split('T')[0];
+            endDate.value = today;
+            endDate.min = today;
+
+            // Load tasks from localStorage
+            let tasks = JSON.parse(localStorage.getItem('crcTasks')) || [];
+
+            // Render tasks
+            renderTasks();
+
+            // Add task event listener
+            addTaskBtn.addEventListener('click', addTask);
+
+            // Filter and sort event listeners
+            filterStatus.addEventListener('change', renderTasks);
+            sortBy.addEventListener('change', renderTasks);
+
+            // Add task function
+            function addTask() {
+                const title = taskTitle.value.trim();
+                const category = workCategory.value;
+                const due = endDate.value;
+                const assignedTo = belongsTo.value;
+                const recipient = sendTo.value;
+                const taskPriority = priority.value;
+                const taskRemarks = remarks.value.trim();
+
+                if (!title || !category || !due || !assignedTo || !recipient) {
+                    alert('Please fill all required fields!');
+                    return;
+                }
+
+                const newTask = {
+                    id: Date.now(),
+                    title,
+                    category,
+                    due,
+                    assignedTo,
+                    recipient,
+                    priority: taskPriority,
+                    remarks: taskRemarks,
+                    completed: false,
+                    createdAt: new Date().toISOString()
+                };
+
+                tasks.push(newTask);
+                saveTasks();
+                renderTasks();
+
+                // Reset form
+                taskTitle.value = '';
+                workCategory.value = '';
+                endDate.value = today;
+                belongsTo.value = '';
+                sendTo.value = '';
+                priority.value = 'Normal';
+                remarks.value = '';
+                taskTitle.focus();
+            }
+
+            // Render tasks function
+            function renderTasks() {
+                // Filter tasks
+                let filteredTasks = [...tasks];
+                const statusFilter = filterStatus.value;
+
+                if (statusFilter === 'complete') {
+                    filteredTasks = filteredTasks.filter(task => task.completed);
+                } else if (statusFilter === 'incomplete') {
+                    filteredTasks = filteredTasks.filter(task => !task.completed);
+                }
+
+                // Sort tasks
+                const sortValue = sortBy.value;
+                filteredTasks.sort((a, b) => {
+                    if (sortValue === 'workCategory') {
+                        return a.category.localeCompare(b.category);
+                    } else if (sortValue === 'priority') {
+                        const priorityOrder = { 'Urgent': 1, 'High': 2, 'Normal': 3 };
+                        return priorityOrder[a.priority] - priorityOrder[b.priority];
+                    } else { // endDate
+                        return new Date(a.due) - new Date(b.due);
+                    }
+                });
+
+                // Clear task list
+                taskList.innerHTML = '';
+
+                // Show empty state if no tasks
+                if (filteredTasks.length === 0) {
+                    const emptyState = document.createElement('div');
+                    emptyState.className = 'empty-state';
+                    emptyState.innerHTML = `
+                        <img src="https://cdn-icons-png.flaticon.com/512/4076/4076478.png" alt="No tasks">
+                        <h3>No tasks found</h3>
+                        <p>Try changing your filters or add a new task</p>
+                    `;
+                    taskList.appendChild(emptyState);
+                    return;
+                }
+
+                // Add tasks to DOM
+                filteredTasks.forEach(task => {
+                    const dueDate = new Date(task.due).toLocaleDateString('en-US', {
+                        weekday: 'short',
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    });
+
+                    const taskCard = document.createElement('div');
+                    taskCard.className = `task-card ${task.completed ? 'complete' : 'incomplete'}`;
+                    taskCard.dataset.id = task.id;
+
+                    taskCard.innerHTML = `
+                        <div class="status-badge ${task.completed ? 'status-complete' : 'status-incomplete'}">
+                            ${task.completed ? 'Completed' : 'Pending'}
+                        </div>
+                        <div class="task-title">${task.title}</div>
+                        <div class="task-meta"><strong>Category:</strong> ${task.category}</div>
+                        <div class="task-meta"><strong>End Date:</strong> ${dueDate}</div>
+                        <div class="task-meta"><strong>Assigned To:</strong> ${task.assignedTo}</div>
+                        <div class="task-meta"><strong>Send To:</strong> ${task.recipient}</div>
+                        <div class="task-meta"><strong>Priority:</strong> ${task.priority}</div>
+                        ${task.remarks ? `<div class="task-remarks"><strong>Remarks:</strong> ${task.remarks}</div>` : ''}
+                        <div class="task-actions">
+                            <button class="${task.completed ? 'btn-incomplete' : 'btn-complete'}" onclick="toggleTaskStatus(${task.id})">
+                                ${task.completed ? 'Mark Incomplete' : 'Mark Complete'}
+                            </button>
+                            <button class="btn-delete" onclick="deleteTask(${task.id})">Delete</button>
+                        </div>
+                    `;
+
+                    taskList.appendChild(taskCard);
+                });
+            }
+
+            // Toggle task status
+            window.toggleTaskStatus = function(taskId) {
+                tasks = tasks.map(task => {
+                    if (task.id === taskId) {
+                        return { ...task, completed: !task.completed };
+                    }
+                    return task;
+                });
+                saveTasks();
+                renderTasks();
+            }
+
+            // Delete task
+            window.deleteTask = function(taskId) {
+                if (confirm('Are you sure you want to delete this task?')) {
+                    tasks = tasks.filter(task => task.id !== taskId);
+                    saveTasks();
+                    renderTasks();
+                }
+            }
+
+            // Save tasks to localStorage
+            function saveTasks() {
+                localStorage.setItem('crcTasks', JSON.stringify(tasks));
+            }
+        });
+    </script>
 </body>
 </html>
